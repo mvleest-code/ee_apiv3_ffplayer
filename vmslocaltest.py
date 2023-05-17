@@ -7,7 +7,6 @@
 import json, requests, sys   
 from flask import Flask, request
 
-
 # Hostname and port for the HTTP server
 hostName            = "127.0.0.1"
 port                = 3333
@@ -22,7 +21,6 @@ def getTokens(code):
     url = "https://auth.eagleeyenetworks.com/oauth2/token?grant_type=authorization_code&scope=vms.all&code="+code+"&redirect_uri=http://"+hostName + ":" + str(port)
     response = requests.post(url, auth=(clientId, clientSecret))
     return response.text
-
 
 app = Flask(__name__)
 
@@ -41,7 +39,6 @@ def index():
         oauthObject = getTokens(code)
         with open('access_response.json', 'w') as f:
             f.write(oauthObject)
-        print(oauthObject)
         return "You are logged in"
     else:
         # Executing step 1, a link is generated to redirect the user to auth.eagleeyenetworks.com
